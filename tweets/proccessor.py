@@ -352,7 +352,6 @@ def process():
             results.write(myString)
     data.close()
     results.close()
-process()
 
 def countThanks(source='justtext'):
     data = io.open(source+".txt", mode="r", encoding="utf-8")
@@ -469,7 +468,6 @@ def tmp(source='justtext'):
         results.write(i)
     data.close()
     results.close()
-tmp('proccessed')
 
 def tweetHistogram(source='justtext'):
     data = io.open(source+".txt", mode="r", encoding="utf-8")
@@ -504,4 +502,32 @@ def countOneWord(source='justtext'):
         print("Treść tweeta:",i[0]," ilość takich tweetów:",i[1])
     data.close()
 
+def countFirstWord(source='justtext'):
+    data = io.open(source+".txt", mode="r", encoding="utf-8")
+    dict = {}
+    for i in data:
+        if(len(i.split())>1):
+            tmp = i.split()[0]
+            if(tmp in dict):
+                dict[tmp] += 1
+            else:
+                dict[tmp] = 1
+    sorted_dict = sorted(dict.items(), key=operator.itemgetter(1))[::-1]
+    print("Liczba wszystkich jednosłownych tweetów:",sum(dict.values()))
+    for i in sorted_dict:
+        if(i[1]<2):
+            break
+        print("Pierwsze słowo tweeta:",i[0]," ilość tak zaczynających się tweetów:",i[1])
+    data.close()
+
+def toJusttext():
+    data = io.open("raw.txt", mode="r", encoding="utf-8")
+    results = io.open("justtext2.txt", mode="w", encoding="utf-8")
+    for i in data:
+        tmp = i.split(',')
+        results.write(','.join(tmp[1:-5])+'\n')
+    results.close()        
+    data.close()
+
+toJusttext()
 batman = 123
