@@ -459,6 +459,18 @@ def justQuotes(source='justtext'):
     data.close()
     results.close()
 
+def tmp(source='justtext'):
+    data = io.open(source+".txt", mode="r", encoding="utf-8")
+    results = io.open("tmp.txt", mode="w", encoding="utf-8")
+    mySet = set()
+    for i in data:
+        mySet.add(i.strip()+'\n')
+    for i in sorted(mySet):
+        results.write(i)
+    data.close()
+    results.close()
+tmp('proccessed')
+
 def tweetHistogram(source='justtext'):
     data = io.open(source+".txt", mode="r", encoding="utf-8")
     dict = {}
